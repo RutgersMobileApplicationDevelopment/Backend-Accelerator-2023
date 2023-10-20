@@ -1,0 +1,12 @@
+{
+  "name": "example_pkg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "mario": "node mario.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
