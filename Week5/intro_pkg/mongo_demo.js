@@ -1,10 +1,10 @@
 const { MongoClient } = require("mongodb");
 
 // Replace the uri string with your connection string.
-const __uri = "<connection string uri>";
+const password = "";
+const __uri = `mongodb+srv://admin:${password}@cluster0.vbk619n.mongodb.net/?retryWrites=true&w=majority`;
 
-
-const client = new MongoClient(uri);
+const client = new MongoClient(__uri);
 
 // findOne demo
 async function demo1() {
@@ -13,7 +13,7 @@ async function demo1() {
         const movies = database.collection('movies');
 
         // Query for a movie that has the title 'Back to the Future'
-        const query = { title: 'Back to the Future' };
+        const query = { runtime: 116 };
         const movie = await movies.findOne(query);
 
         console.log(movie);
@@ -98,4 +98,4 @@ async function demo4() {
   }
 }
 
-// demo4().catch(console.dir);
+demo4().catch(console.dir);
