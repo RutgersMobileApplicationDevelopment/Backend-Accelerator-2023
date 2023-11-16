@@ -1,0 +1,18 @@
+{
+  "name": "login_demo",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "ExpressClient.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0"
+  }
+}
