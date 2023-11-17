@@ -61,7 +61,6 @@ export async function fetchSession(sessionData) {
     await client.connect();
     const collection = await client.db('rumad_week_6').collection('sessions')
     const session = await collection.findOne({metaField: sessionData})
-    console.log(session)
     return session
   } finally {
     // Ensures that the client will close when you finish/error

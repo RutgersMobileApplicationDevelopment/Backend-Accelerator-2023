@@ -1,3 +1,9 @@
+/**
+ *  The ES standard is a standard for JavaScript syntax
+ * 
+ *  https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
+ */
+
 // Import MongoClient.js
 import { findUser, addSession, fetchSession } from './MongoClient.js'
 // Import Env
@@ -17,19 +23,6 @@ app.use(cookieParser())
 const port = process.env.EXPRESS_PORT
 
 app.use(express.urlencoded())
-
-// Create a function to get session key
-const sessionChecker = (req, res, next) => {
-    var noSessionFound = true;
-    console.log(req.headers.cookie)
-    // if (!noSessionFound) {
-    //     console.log(`Found User Session`.green);
-    //     next();
-    // } else {
-    //     console.log(`No User Session Found`.red);
-    //     res.redirect('/login');
-    // }
-};
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -51,12 +44,15 @@ app.post('/login/post', (req, res) => {
   findUser(req.body.username, req.body.password).then((result) => {
     console.log(result)
     if(result == 200) {
+      console.log("User found, logging in...")
       addSession().then((sessionDetails) => {
         res.cookie('session', sessionDetails, {sameSite : "none", httpOnly: true, path: '/'})
+        console.log("Login Successful!")
         res.redirect('/dashboard')
         // console.log(req)
       })
     } else {
+      console.log("User not found, retry login")
       res.redirect('/login')
     }
 })
@@ -65,18 +61,21 @@ app.post('/login/post', (req, res) => {
 app.get('/', (req, res) => {
   // Set a cookie and then return a response
   try {
-    console.log(req.cookies['session'])
     if(req.cookies['session'] != undefined) {
+      console.log("Session cookie found, Cookie: " + req.cookies['session'] + " Checking if it is valid...")
       fetchSession(req.cookies['session']).then((sessionDetails) => {
-        console.log(sessionDetails)
+        console.log("Matched " + sessionDetails.metaField + " to " + req.cookies['session'])
         if(sessionDetails != null) {
+          console.log("Session cookie valid, redirecting to dashboard")
           res.redirect('/dashboard')
         }else {
+          console.log("Session cookie not valid, Cookie: " + req.cookies['session'])
           res.redirect('/login')
         }
       })
       // console.log(req)
   } else {
+    console.log("Session cookie not found, redirecting to login page")
     res.redirect('/login')
     // console.log(req)
   }
