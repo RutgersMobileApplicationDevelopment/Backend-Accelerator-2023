@@ -23,7 +23,7 @@ async function run() {
 
 export async function findUser(usr, pw) {
   try {
-    await client.connect();
+    await client.connect()
     const collection = await client.db('rumad_week_6').collection('user_pass')
     const user = await collection.findOne({username: usr}, function(err, result) {
       if (err) throw err;
